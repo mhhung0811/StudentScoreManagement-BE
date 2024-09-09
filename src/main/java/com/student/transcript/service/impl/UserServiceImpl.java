@@ -1,5 +1,6 @@
 package com.student.transcript.service.impl;
 
+import com.student.transcript.domain.dto.PageRequestDTO;
 import com.student.transcript.domain.dto.UserDTO;
 import com.student.transcript.domain.entity.Transcript;
 import com.student.transcript.domain.entity.User;
@@ -10,6 +11,8 @@ import com.student.transcript.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,6 +35,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> findAll() {
         return UserMapper.toUserDTO(userRepository.findAll());
+    }
+
+    @Override
+    public Page<UserDTO> searchByName(String name, PageRequestDTO dto) {
+        Pageable pageable = new PageRequestDTO().getPageable(dto);
+
+        Page<User> res = userRepository.findByNameContaining(name, pageable);
+        return UserMapper.toUserDTO(res);
     }
 
     @Override

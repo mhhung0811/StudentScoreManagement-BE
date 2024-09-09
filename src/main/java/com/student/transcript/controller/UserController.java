@@ -1,8 +1,10 @@
 package com.student.transcript.controller;
 
+import com.student.transcript.domain.dto.PageRequestDTO;
 import com.student.transcript.domain.dto.UserDTO;
 import com.student.transcript.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,17 @@ public class UserController {
         Optional<UserDTO> res = userService.findUserByUsername(name);
         return res.map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @CrossOrigin
+    @PostMapping("/search")
+    public ResponseEntity<Page<UserDTO>> searchUser(
+            @RequestParam String name,
+            @RequestBody PageRequestDTO dto
+        ) {
+        Page<UserDTO> res = userService.searchByName(name, dto);
+        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @CrossOrigin

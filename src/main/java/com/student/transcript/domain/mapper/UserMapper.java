@@ -2,6 +2,7 @@ package com.student.transcript.domain.mapper;
 
 import com.student.transcript.domain.dto.UserDTO;
 import com.student.transcript.domain.entity.User;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class UserMapper {
             userDTOs.add(toUserDTO(user));
         }
         return userDTOs;
+    }
+    public static Page<UserDTO> toUserDTO(Page<User> users) {
+        return users.map(UserMapper::toUserDTO);
     }
     public static User toUser(UserDTO userDTO) {
         return new User(
