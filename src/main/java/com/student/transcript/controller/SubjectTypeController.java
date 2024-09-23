@@ -68,6 +68,19 @@ public class SubjectTypeController {
     }
 
     @CrossOrigin
+    @PostMapping("/search")
+    public ResponseEntity<Page<SubjectTypeDTO>> searchSubjectType(
+            @RequestParam String key,
+            @RequestParam Boolean code,
+            @RequestParam Boolean name,
+            @RequestBody PageRequestDTO page
+    ) {
+        Page<SubjectTypeDTO> res = subjectTypeService.searchByCodeOrName(key, code, name, page);
+        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteSubjectType(@PathVariable String id) {
         subjectTypeService.deleteSubjectType(id);

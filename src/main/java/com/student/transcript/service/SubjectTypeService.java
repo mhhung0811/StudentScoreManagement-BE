@@ -15,4 +15,5 @@ public interface SubjectTypeService {
     Optional<SubjectTypeDTO> findSubjectTypeByCode(String code);
     List<SubjectTypeDTO> findSubjectTypeCodeContainingOrNameContaining(String code, String name);
     void deleteSubjectType(String id);
+    Page<SubjectTypeDTO> searchByCodeOrName(String key, Boolean code, Boolean name, PageRequestDTO page);
 }

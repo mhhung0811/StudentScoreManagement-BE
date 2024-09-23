@@ -78,4 +78,12 @@ public class SubjectTypeServiceImpl implements SubjectTypeService {
             log.debug("Attempted to delete non-existing subject type", e);
         }
     }
+
+    @Override
+    public Page<SubjectTypeDTO> searchByCodeOrName(String key, Boolean code, Boolean name, PageRequestDTO page) {
+        Pageable pageable = new PageRequestDTO().getPageable(page);
+
+        Page<SubjectType> res = subjectTypeRepository.findSubjectTypeBySearch(key, code, name, pageable);
+        return SubjectTypeMapper.toSubjectTypeDTO(res);
+    }
 }

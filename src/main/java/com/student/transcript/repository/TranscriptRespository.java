@@ -18,28 +18,12 @@ public interface TranscriptRespository extends JpaRepository<Transcript, String>
     List<Transcript> findTranscriptByUserId(String id);
     List<Transcript> findTranscriptByUserIdAndYear(String id, String year);
     Optional<Transcript> findTranscriptByUserIdAndYearAndSemester(String userId, String year, String semester);
-//    @Query(value =
-//            "SELECT t " +
-//            "FROM Transcript t " +
-//            "JOIN User u ON t.userId = u.id " +
-//            "WHERE " +
-//                "u.name LIKE CONCAT('%', :key, '%') OR " +
-//                "t.year LIKE CONCAT('%', :key, '%') OR " +
-//                "t.semester LIKE CONCAT('%', :key, '%')"
-//    )
-//    Page<Transcript> findTranscriptBySearch(
-//            @Param("key") String key,
-//            @Param("name") String name,
-//            @Param("year") String year,
-//            @Param("semester") String semester,
-//            Pageable pageable
-//    );
-
     @Query(value = "SELECT t FROM Transcript t " +
             "JOIN User u ON t.userId = u.id " +
             "WHERE ( (:name = TRUE AND u.name LIKE CONCAT('%', :key, '%')) OR " +
             "(:year = TRUE AND t.year LIKE CONCAT('%', :key, '%')) OR " +
-            "(:semester = TRUE AND t.semester = :key) )")
+            "(:semester = TRUE AND t.semester LIKE CONCAT('%', :key, '%')) )"
+    )
     Page<Transcript> findTranscriptBySearch(
             @Param("key") String key,
             @Param("name") Boolean name,

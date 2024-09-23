@@ -1,7 +1,9 @@
 package com.student.transcript.domain.mapper;
 
 import com.student.transcript.domain.dto.SubjectTypeDTO;
+import com.student.transcript.domain.dto.UserDTO;
 import com.student.transcript.domain.entity.SubjectType;
+import com.student.transcript.domain.entity.User;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
