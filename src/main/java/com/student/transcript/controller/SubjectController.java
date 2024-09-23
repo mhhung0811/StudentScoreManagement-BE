@@ -61,6 +61,22 @@ public class SubjectController {
     }
 
     @CrossOrigin
+    @PostMapping("/search/v2")
+    public ResponseEntity<Page<SubjectDTO>> searchSubject(
+            @RequestParam String key,
+            @RequestParam Boolean name,
+            @RequestParam Boolean year,
+            @RequestParam Boolean semester,
+            @RequestParam Boolean subjectcode,
+            @RequestParam Boolean subjectname,
+            @RequestBody PageRequestDTO page
+    ) {
+        Page<SubjectDTO> res = subjectService.findSubjectBySearch(key, name, year, semester, subjectcode, subjectname, page);
+        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @PutMapping("/update")
     public ResponseEntity<SubjectDTO> updateSubject(@RequestBody SubjectDTO subjectDTO) {
         Optional<SubjectDTO> res = subjectService.updateSubject(subjectDTO);

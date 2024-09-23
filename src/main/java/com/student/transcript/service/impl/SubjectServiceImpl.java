@@ -85,6 +85,22 @@ public class SubjectServiceImpl implements SubjectService {
         return SubjectMapper.toSubjectDTO(res);
     }
 
+    @Override
+    public Page<SubjectDTO> findSubjectBySearch(
+            String key,
+            Boolean name,
+            Boolean year,
+            Boolean semester,
+            Boolean subjectcode,
+            Boolean subjectname,
+            PageRequestDTO page
+    ) {
+        Pageable pageable = new PageRequestDTO().getPageable(page);
+
+        Page<Subject> res = subjectRepository.findSubjectBySearch(key, name, year, semester, subjectcode, subjectname, pageable);
+        return SubjectMapper.toSubjectDTO(res);
+    }
+
 
     @Override
     public Optional<SubjectDTO> updateSubject(SubjectDTO subjectDTO) {

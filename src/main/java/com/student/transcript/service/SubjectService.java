@@ -13,6 +13,7 @@ public interface SubjectService {
     List<SubjectDTO> findSubjectBySubjectTypeId(String id);
     Optional<SubjectDTO> findSubjectByTranscriptIdAndSubjectTypeId(String transcriptId, String subjectTypeId);
     Page<SubjectDTO> searchSubject(String transcriptId, String key, PageRequestDTO dto);
+    Page<SubjectDTO> findSubjectBySearch(String key, Boolean name, Boolean year, Boolean semester, Boolean subjectcode, Boolean subjectname, PageRequestDTO page);
     Optional<SubjectDTO> updateSubject(SubjectDTO subjectDTO);
     void deleteSubject(String id);
 }
