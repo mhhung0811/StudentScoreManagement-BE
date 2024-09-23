@@ -1,8 +1,6 @@
 package com.student.transcript.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +17,12 @@ import org.hibernate.annotations.UuidGenerator;
 public class Transcript {
     @Id
     @UuidGenerator
+    @Column(name = "id")
     private String id;
+    @Column(name = "user_id")
     private String userId;
+    @Column(name = "year")
     private String year;
-    private int semester;
+    @Column(name = "semester")
+    private String semester;
 }

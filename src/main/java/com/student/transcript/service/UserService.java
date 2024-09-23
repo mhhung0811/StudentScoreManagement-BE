@@ -14,7 +14,7 @@ public interface UserService {
     Optional<UserDTO> createUser(UserDTO user);
     Optional<UserDTO> findUserByUsername(String username);
     List<String> findAllYearByUserId(String userId);
-    List<Integer> findAllSemesterByUserIdAndYear(String userId, String year);
+    List<String> findAllSemesterByUserIdAndYear(String userId, String year);
     Optional<UserDTO> updateUser(String id, String name);
     void deleteUser(String id);
 }

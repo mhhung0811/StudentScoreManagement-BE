@@ -1,8 +1,10 @@
 package com.student.transcript.controller;
 
+import com.student.transcript.domain.dto.PageRequestDTO;
 import com.student.transcript.domain.dto.TranscriptDTO;
 import com.student.transcript.service.TranscriptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +34,24 @@ public class TranscriptController {
     public ResponseEntity<TranscriptDTO> getTranscriptByUserIdAndYearAndSemester(
             @RequestParam String userId,
             @RequestParam String year,
-            @RequestParam int semester) {
+            @RequestParam String semester) {
         Optional<TranscriptDTO> res = transcriptService.findTranscriptByUserIdAndYearAndSemester(userId, year, semester);
         return res.map(transcriptDTO -> new ResponseEntity<>(transcriptDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @CrossOrigin
+    @PostMapping("/search")
+    public ResponseEntity<Page<TranscriptDTO>> searchTranscripts(
+            @RequestParam String key,
+            @RequestParam Boolean name,
+            @RequestParam Boolean semester,
+            @RequestParam Boolean year,
+            @RequestBody PageRequestDTO page
+        ) {
+        Page<TranscriptDTO> res = transcriptService.findTranscriptBySearch(key, name, year, semester, page);
+        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @CrossOrigin

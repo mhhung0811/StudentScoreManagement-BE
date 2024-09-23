@@ -57,7 +57,7 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping(path = "/semester")
-    public ResponseEntity<List<Integer>> getAllSemesterByUserIdAndYear(
+    public ResponseEntity<List<String>> getAllSemesterByUserIdAndYear(
         @RequestParam String id,
         @RequestParam String year
     ) {

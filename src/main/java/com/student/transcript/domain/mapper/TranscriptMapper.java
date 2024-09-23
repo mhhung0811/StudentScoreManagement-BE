@@ -1,7 +1,10 @@
 package com.student.transcript.domain.mapper;
 
 import com.student.transcript.domain.dto.TranscriptDTO;
+import com.student.transcript.domain.dto.UserDTO;
 import com.student.transcript.domain.entity.Transcript;
+import com.student.transcript.domain.entity.User;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,9 @@ public class TranscriptMapper {
             res.add(toTranscriptDTO(transcript));
         }
         return res;
+    }
+    public static Page<TranscriptDTO> toTranscriptDTO(Page<Transcript> transcripts) {
+        return transcripts.map(TranscriptMapper::toTranscriptDTO);
     }
     public static Transcript toTranscript(TranscriptDTO transcript) {
         return new Transcript(

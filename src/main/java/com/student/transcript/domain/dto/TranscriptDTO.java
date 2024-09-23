@@ -15,5 +15,5 @@ public class TranscriptDTO {
     private String id;
     private String userId;
     private String year;
-    private int semester;
+    private String semester;
 }

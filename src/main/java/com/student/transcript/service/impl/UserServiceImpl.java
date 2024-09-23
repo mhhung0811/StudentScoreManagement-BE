@@ -69,8 +69,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Integer> findAllSemesterByUserIdAndYear(String userId, String year) {
-        List<Integer> res = new ArrayList<>();
+    public List<String> findAllSemesterByUserIdAndYear(String userId, String year) {
+        List<String> res = new ArrayList<>();
         List<Transcript> transcripts = transcriptRespository.findTranscriptByUserIdAndYear(userId, year);
         for (Transcript transcript : transcripts) {
             res.add(transcript.getSemester());
