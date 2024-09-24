@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface UserService {
     List<UserDTO> findAll();
+    Optional<UserDTO> findById(String id);
     Page<UserDTO> searchByName(String name, PageRequestDTO dto);
     Optional<UserDTO> createUser(UserDTO user);
     Optional<UserDTO> findUserByUsername(String username);

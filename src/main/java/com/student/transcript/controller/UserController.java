@@ -29,9 +29,17 @@ public class UserController {
     }
 
     @CrossOrigin()
-    @GetMapping(path = "/{name}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable String name) {
+    @GetMapping(path = "/name/{name}")
+    public ResponseEntity<UserDTO> getUserName(@PathVariable String name) {
         Optional<UserDTO> res = userService.findUserByUsername(name);
+        return res.map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @CrossOrigin()
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable String id) {
+        Optional<UserDTO> res = userService.findById(id);
         return res.map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -43,7 +51,7 @@ public class UserController {
             @RequestBody PageRequestDTO dto
         ) {
         Page<UserDTO> res = userService.searchByName(name, dto);
-        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (res.isEmpty()) return new ResponseEntity<>(Page.empty(), HttpStatus.OK);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

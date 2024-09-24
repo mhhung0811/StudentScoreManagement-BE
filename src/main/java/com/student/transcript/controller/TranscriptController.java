@@ -23,7 +23,15 @@ public class TranscriptController {
     }
 
     @CrossOrigin
-    @GetMapping("/{userId}")
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<TranscriptDTO>> getTranscriptById(@PathVariable String id) {
+        Optional<TranscriptDTO> res = transcriptService.findTranscriptById(id);
+        return ResponseEntity.ok(res);
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/userid/{userId}")
     public ResponseEntity<List<TranscriptDTO>> getTranscriptByUserId(@PathVariable String userId) {
         List<TranscriptDTO> res = transcriptService.findTranscriptByUserId(userId);
         return ResponseEntity.ok(res);
@@ -50,7 +58,7 @@ public class TranscriptController {
             @RequestBody PageRequestDTO page
         ) {
         Page<TranscriptDTO> res = transcriptService.findTranscriptBySearch(key, name, year, semester, page);
-        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (res.isEmpty()) return new ResponseEntity<>(Page.empty(), HttpStatus.OK);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

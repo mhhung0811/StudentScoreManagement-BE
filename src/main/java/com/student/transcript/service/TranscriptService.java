@@ -13,4 +13,5 @@ public interface TranscriptService {
     Optional<TranscriptDTO> findTranscriptByUserIdAndYearAndSemester(String userId, String year, String semester);
     void deleteTranscript(String id);
     Page<TranscriptDTO> findTranscriptBySearch(String key, Boolean name, Boolean year, Boolean semester, PageRequestDTO page);
+    Optional<TranscriptDTO> findTranscriptById(String id);
 }

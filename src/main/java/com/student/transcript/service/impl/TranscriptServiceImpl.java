@@ -84,4 +84,11 @@ public class TranscriptServiceImpl implements TranscriptService {
         Page<Transcript> res = transcriptRespository.findTranscriptBySearch(key, name, year, semester, pageable);
         return TranscriptMapper.toTranscriptDTO(res);
     }
+
+    @Override
+    public Optional<TranscriptDTO> findTranscriptById(String id) {
+        if (transcriptRespository.findById(id).isEmpty()) return Optional.empty();
+
+        return transcriptRespository.findById(id).map(TranscriptMapper::toTranscriptDTO);
+    }
 }

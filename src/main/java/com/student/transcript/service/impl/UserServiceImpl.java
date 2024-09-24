@@ -38,6 +38,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<UserDTO> findById(String id) {
+        if (userRepository.findById(id).isEmpty()) return Optional.empty();
+
+        return userRepository.findById(id).map(UserMapper::toUserDTO);
+    }
+
+    @Override
     public Page<UserDTO> searchByName(String name, PageRequestDTO dto) {
         Pageable pageable = new PageRequestDTO().getPageable(dto);
 

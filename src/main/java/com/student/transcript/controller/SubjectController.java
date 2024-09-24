@@ -72,7 +72,7 @@ public class SubjectController {
             @RequestBody PageRequestDTO page
     ) {
         Page<SubjectDTO> res = subjectService.findSubjectBySearch(key, name, year, semester, subjectcode, subjectname, page);
-        if (res.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (res.isEmpty()) return new ResponseEntity<>(Page.empty(), HttpStatus.OK);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
